@@ -50,8 +50,8 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
-    public void modifyReview(Review review) {
-        Optional<Review> select = reviewRepository.findById(review.getReviewId());
+    public void modifyReview(Integer id, Review review) {
+        Optional<Review> select = reviewRepository.findById(id);
 //
 //        select.ifPresent(selectReview ->{
 //            Review update = Review.builder()

@@ -5,7 +5,7 @@ import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

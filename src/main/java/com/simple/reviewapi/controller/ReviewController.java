@@ -1,37 +1,19 @@
 package com.simple.reviewapi.controller;
 
-import com.simple.reviewapi.entity.Lesson;
 import com.simple.reviewapi.entity.Review;
-import com.simple.reviewapi.entity.User;
-import com.simple.reviewapi.repository.LessonRepository;
-import com.simple.reviewapi.repository.ReviewRepository;
-import com.simple.reviewapi.repository.UserRepository;
 import com.simple.reviewapi.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.data.domain.Pageable;
-
-import javax.annotation.PostConstruct;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 public class ReviewController {
-
-    private final ReviewRepository reviewRepository;
-    private final UserRepository userRepository;
-    private final LessonRepository lessonRepository;
-
     private final ReviewService service;
 
     @GetMapping("/reviews")
@@ -57,11 +39,12 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/review")
+    @PutMapping("/review/{id}")
     private ResponseEntity<Void> modifyReview(
+            @PathVariable Integer id,
             @RequestBody Review review
     ) {
-        service.modifyReview(review);
+        service.modifyReview(id, review);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
