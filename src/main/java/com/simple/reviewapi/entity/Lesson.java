@@ -14,7 +14,7 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("강의id")
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private int lessonId;
 
     @Comment("강의 제목")
@@ -33,9 +33,4 @@ public class Lesson {
     @Column(nullable = false, length = 10)
     private String duration;
 
-//    @Builder
-//    public User(String id, String name) {
-//        this.id = id;
-//        this.name = name;
-//    }
 }
