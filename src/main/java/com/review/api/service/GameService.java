@@ -1,19 +1,21 @@
-package com.simple.reviewapi.service;
+package com.review.api.service;
 
-import com.simple.reviewapi.entity.Review;
-import com.simple.reviewapi.repository.ReviewRepository;
-import lombok.RequiredArgsConstructor;
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import com.review.api.entity.Review;
+import com.review.api.repository.ReviewRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewService {
+public class GameService {
 
     private final ReviewRepository reviewRepository;
 

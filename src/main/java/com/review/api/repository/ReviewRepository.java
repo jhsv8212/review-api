@@ -1,8 +1,7 @@
-package com.simple.reviewapi.repository;
+package com.review.api.repository;
 
-import com.simple.reviewapi.entity.Review;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.review.api.entity.Review;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

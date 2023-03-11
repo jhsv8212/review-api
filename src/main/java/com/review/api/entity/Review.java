@@ -1,4 +1,4 @@
-package com.simple.reviewapi.entity;
+package com.review.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="review")
+@Entity
+@Table(name="review")
 public class Review {
 
     @Id
@@ -24,9 +25,9 @@ public class Review {
     @Column(length = 10)
     private int userId;
 
-    @Comment("강의 id")
+    @Comment("게임 id")
     @Column(length = 10)
-    private int lessonId;
+    private int gameId;
 
     @Comment("리뷰 평점")
     @Column(length = 1)

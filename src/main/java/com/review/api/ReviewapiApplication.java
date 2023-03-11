@@ -1,4 +1,4 @@
-package com.simple.reviewapi;
+package com.review.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
