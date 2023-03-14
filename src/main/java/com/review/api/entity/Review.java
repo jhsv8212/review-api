@@ -18,35 +18,34 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("리뷰 id")
-    @Column(length = 10)
-    private int reviewId;
+    private Long id;
 
-    @Comment("리뷰 작성자 정보")
-    @Column(length = 10)
-    private int userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users users;
 
-    @Comment("게임 id")
-    @Column(length = 10)
-    private int gameId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    private Game game;
 
     @Comment("리뷰 평점")
     @Column(length = 1)
-    private Integer reviewScore;
+    private Integer rating;
 
     @Comment("리뷰 좋아요 개수")
     @Column(length = 10)
-    private Integer reviewLike;
+    private Integer likeCount;
 
     @Comment("리뷰 본문")
     @Column(length = 1000)
-    private String reviewContent;
+    private String content;
 
     @Comment("리뷰 생성 일시")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdTime;
+    private LocalDateTime createdAt;
 
     @Comment("리뷰 수정 일시")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedTime;
+    private LocalDateTime updatedAt;
 
 }

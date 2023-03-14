@@ -6,7 +6,7 @@ import org.hibernate.annotations.Comment;
 import javax.persistence.*;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -15,19 +15,17 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("게임id")
-    @Column(length = 10)
-    private int gameId;
+    private Long id;
 
     @Comment("게임 제목")
     @Column(nullable = false, length = 50)
-    private String gameName;
+    private String title;
 
     @Comment("제작사")
     @Column(nullable = false, length = 50)
-    private String publisher;
+    private String developer;
 
     @Comment("출시년도")
     @Column(nullable = false, length = 10)
-    private int publishYear;
-
+    private int releaseYear;
 }

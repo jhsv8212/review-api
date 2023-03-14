@@ -1,8 +1,11 @@
 package com.review.api.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
+import com.review.api.entity.Game;
+import com.review.api.repository.GameRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,80 +15,43 @@ import com.review.api.entity.Review;
 import com.review.api.repository.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class GameService {
 
-    private final ReviewRepository reviewRepository;
+    private final GameRepository gameRepository;
 
-    public Page<Review> findGameAll(Integer order, Integer page) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "reviewLike");
-        if (order != null) {
-            switch (order) {
-                // 좋아요 순
-                case 1 :
-                    sort = Sort.by(Sort.Direction.DESC, "reviewLike");
-                    break;
-                // 최신 순
-                case 2 :
-                    sort = Sort.by(Sort.Direction.DESC, "updatedTime");
-                    break;
-                // 높은 평점 순
-                case 3 :
-                    sort = Sort.by(Sort.Direction.DESC, "reviewScore");
-                    break;
-                // 낮은 평점 순
-                case 4 :
-                    sort = Sort.by(Sort.Direction.ASC, "reviewScore");
-                    break;
-            }
-        }
-        return reviewRepository.findAll(PageRequest.of(page, 10, sort));
+    @Transactional
+    public Game createGame(Game game) {
+        return gameRepository.save(game);
     }
 
-    public Optional<Review> findGameById(Integer id) {
-        return reviewRepository.findById(id);
-    }
-
-    public void saveGameById(Review review) {
-        reviewRepository.save(review);
-    }
-
-    public void modifyGame(Integer id, Review review) {
-        Optional<Review> select = reviewRepository.findById(id);
-//
-//        select.ifPresent(selectReview ->{
-//            Review update = Review.builder()
-//                    .reviewId(selectReview.getReviewId())
-//                    .lessonId(selectReview.getLessonId())
-//                    .userId(selectReview.getUserId())
-//                    .reviewScore(review.getReviewScore())
-//                    .reviewLike(review.getReviewLike())
-//                    .reviewContent(review.getReviewContent())
-//                    .createdTime(selectReview.getCreatedTime())
-//                    .updatedTime(LocalDateTime.now())
-//                    .build();
-//
-//            System.out.println("update: "+update);
-//            reviewRepository.save(update);
-//        });
-
-
+    @Transactional
+    public Game updateGame(Long id, Game game) {
         // toBuilder 사용하여 업데이트 항목만 적용
-        select.ifPresent(selectReview ->{
-            Review update = selectReview.toBuilder()
-                    .reviewScore(review.getReviewScore())
-                    .reviewLike(review.getReviewLike())
-                    .reviewContent(review.getReviewContent())
-                    .updatedTime(LocalDateTime.now())
-                    .build();
-            reviewRepository.save(update);
-        });
+        Game existingGame = getGame(id);
+        existingGame.toBuilder()
+                .title(game.getTitle())
+                .developer(game.getDeveloper())
+                .releaseYear(game.getReleaseYear())
+                .build();
+        return gameRepository.save(existingGame);
     }
 
-    public void deleteGameById(Integer id) {
-        reviewRepository.deleteById(id);
+    @Transactional
+    public void deleteGame(Long id) {
+        gameRepository.deleteById(id);
+    }
+
+    public Game getGame(Long id) {
+        return gameRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게임 정보가 존재하지 않습니다."));
+    }
+
+    public List<Game> getGames() {
+        return gameRepository.findAll();
     }
 
 }
