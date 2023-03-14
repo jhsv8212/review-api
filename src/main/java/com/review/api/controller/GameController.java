@@ -16,52 +16,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.review.api.entity.Review;
-import com.review.api.service.ReviewService;
+import com.review.api.service.GameService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class GameController {
-    private final ReviewService service;
+    private final GameService service;
 
-    @GetMapping("/reviews")
+    @GetMapping("/games")
     private ResponseEntity<Page<Review>> findReviewAll(
             @RequestParam @Nullable Integer order,
             @RequestParam Integer page) {
 
-        return ResponseEntity.ok(service.findReviewAll(order, page));
+        return ResponseEntity.ok(service.findGameAll(order, page));
     }
 
-    @GetMapping("/review/{id}")
+    @GetMapping("/game/{id}")
     private ResponseEntity<Optional<Review>> findReviewById(
             @PathVariable Integer id
     ) {
-        return ResponseEntity.ok(service.findReviewById(id));
+        return ResponseEntity.ok(service.findGameById(id));
     }
 
-    @PostMapping("/review")
+    @PostMapping("/game")
     private ResponseEntity<Void> saveReviewById(
             @RequestBody Review review
     ) {
-        service.saveReviewById(review);
+        service.saveGameById(review);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/review/{id}")
+    @PutMapping("/game/{id}")
     private ResponseEntity<Void> modifyReview(
             @PathVariable Integer id,
             @RequestBody Review review
     ) {
-        service.modifyReview(id, review);
+        service.modifyGame(id, review);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/review/{id}")
+    @DeleteMapping("/game/{id}")
     private ResponseEntity<Void> deleteReviewById(
             @PathVariable int id
     ) {
-        service.deleteReviewById(id);
+        service.deleteGameById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

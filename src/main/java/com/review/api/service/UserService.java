@@ -14,7 +14,9 @@ import com.review.api.entity.Users;
 import com.review.api.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -23,6 +25,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public void signUpUser(Users users) {
+        log.info("======encoded pwd : {}", passwordEncoder.encode(users.getPassword()));
         Users encode = users.toBuilder()
                 .password(passwordEncoder.encode(users.getPassword()))
                 .build();

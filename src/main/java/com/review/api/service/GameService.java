@@ -19,7 +19,7 @@ public class GameService {
 
     private final ReviewRepository reviewRepository;
 
-    public Page<Review> findReviewAll(Integer order, Integer page) {
+    public Page<Review> findGameAll(Integer order, Integer page) {
         Sort sort = Sort.by(Sort.Direction.DESC, "reviewLike");
         if (order != null) {
             switch (order) {
@@ -44,15 +44,15 @@ public class GameService {
         return reviewRepository.findAll(PageRequest.of(page, 10, sort));
     }
 
-    public Optional<Review> findReviewById(Integer id) {
+    public Optional<Review> findGameById(Integer id) {
         return reviewRepository.findById(id);
     }
 
-    public void saveReviewById(Review review) {
+    public void saveGameById(Review review) {
         reviewRepository.save(review);
     }
 
-    public void modifyReview(Integer id, Review review) {
+    public void modifyGame(Integer id, Review review) {
         Optional<Review> select = reviewRepository.findById(id);
 //
 //        select.ifPresent(selectReview ->{
@@ -84,7 +84,7 @@ public class GameService {
         });
     }
 
-    public void deleteReviewById(Integer id) {
+    public void deleteGameById(Integer id) {
         reviewRepository.deleteById(id);
     }
 

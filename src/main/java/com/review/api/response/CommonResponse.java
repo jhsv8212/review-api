@@ -7,11 +7,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
-@RequiredArgsConstructor
-@NoArgsConstructor
+@Setter
 public class CommonResponse<T> {
 
 	private int code;
