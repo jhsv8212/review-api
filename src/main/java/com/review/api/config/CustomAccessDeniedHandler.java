@@ -19,6 +19,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException,
             ServletException {
-        response.sendRedirect("/exception/accessdenied");
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "접근 할 수 없습니다.");
     }
 }

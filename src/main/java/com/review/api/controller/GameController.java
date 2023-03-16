@@ -32,23 +32,23 @@ public class GameController {
     //  @PreAuthorize 어노테이션을 이용하여 hasAuthority('ROLE_ADMIN')이라는 표현식을 사용하여 admin 권한을 가진 사용자만 해당 메서드를 호출할 수 있도록 설정
 
     // 게임 정보 생성 API
-    @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/game")
+    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
         Game createdGame = service.createGame(game);
         return ResponseEntity.created(URI.create("/games/" + createdGame.getId())).body(createdGame);
     }
 
     // 게임 정보 수정 API
-    @PutMapping("/{id}")
+    @PutMapping("/game/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
-        Game updatedGame = service.updateGame(id, game);
-        return ResponseEntity.ok(updatedGame);
+    public ResponseEntity<Void> updateGame(@PathVariable Long id, @RequestBody Game game) {
+        service.updateGame(id, game);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // 게임 정보 삭제 API
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/game/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
         service.deleteGame(id);
@@ -56,14 +56,14 @@ public class GameController {
     }
 
     // 게임 정보 조회 API
-    @GetMapping("/{id}")
+    @GetMapping("/game/{id}")
     public ResponseEntity<Game> getGame(@PathVariable Long id) {
         Game game = service.getGame(id);
         return ResponseEntity.ok(game);
     }
 
     // 모든 게임 정보 조회 API
-    @GetMapping
+    @GetMapping("/games")
     public ResponseEntity<List<Game>> getGames() {
         List<Game> games = service.getGames();
         return ResponseEntity.ok(games);

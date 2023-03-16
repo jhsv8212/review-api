@@ -35,7 +35,7 @@ public class ReviewController {
 
     @GetMapping("/review/{id}")
     private ResponseEntity<Optional<Review>> findReviewById(
-            @PathVariable Integer id
+            @PathVariable Long id
     ) {
         return ResponseEntity.ok(service.findReviewById(id));
     }
@@ -44,13 +44,13 @@ public class ReviewController {
     private ResponseEntity<Void> saveReviewById(
             @RequestBody Review review
     ) {
-        service.saveReviewById(review);
+        service.saveReview(review);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/review/{id}")
     private ResponseEntity<Void> modifyReview(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @RequestBody Review review
     ) {
         service.modifyReview(id, review);
@@ -59,7 +59,7 @@ public class ReviewController {
 
     @DeleteMapping("/review/{id}")
     private ResponseEntity<Void> deleteReviewById(
-            @PathVariable int id
+            @PathVariable Long id
     ) {
         service.deleteReviewById(id);
         return new ResponseEntity<>(HttpStatus.OK);

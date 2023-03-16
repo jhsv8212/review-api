@@ -1,25 +1,14 @@
 package com.review.api.response;
 
-import java.util.Collections;
-import java.util.List;
-
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CommonResponse<T> {
+public class CommonResponse {
 
 	private int code;
 
 	private String message;
 
-	@Builder.Default
-	private List<T> list = Collections.emptyList();
-
-	@Builder.Default
-	private T data = null;
 }

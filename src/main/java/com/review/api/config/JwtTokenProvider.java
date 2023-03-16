@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import com.review.api.entity.Member;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -27,7 +29,7 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
     @Value("spring.jwt.secret")
     private String secretKey;
 
-    private long tokenValidMilisecond = 1000 * 60 * 60; // 1시간만 토큰 유효
+    private long tokenValidMilisecond = 1000 * 60 * 60L; // 1시간만 토큰 유효
 
     private final UserDetailsService userDetailsService;
 
@@ -44,7 +46,7 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
         return Jwts.builder()
                 .setClaims(claims) // 데이터
                 .setIssuedAt(now) // 토큰 발행일자
-                .setExpiration(new Date(now.getTime() + tokenValidMilisecond)) // set Expire Time
+                .setExpiration(new Date(now.getTime() + tokenValidMilisecond)) // 만료시간
                 .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 세팅
                 .compact();
     }
@@ -60,9 +62,9 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    // Request의 Header에서 token 파싱 : "AUTHORIZATION: jwt토큰"
+    // Request의 Header에서 token 파싱 : "Authorization: jwt토큰"
     public String resolveToken(HttpServletRequest req) {
-        return req.getHeader("AUTHORIZATION");
+        return req.getHeader("Authorization");
     }
 
     // Jwt 토큰의 유효성 + 만료일자 확인

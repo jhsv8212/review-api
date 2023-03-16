@@ -29,15 +29,16 @@ public class GameService {
     }
 
     @Transactional
-    public Game updateGame(Long id, Game game) {
-        // toBuilder 사용하여 업데이트 항목만 적용
-        Game existingGame = getGame(id);
-        existingGame.toBuilder()
-                .title(game.getTitle())
-                .developer(game.getDeveloper())
-                .releaseYear(game.getReleaseYear())
-                .build();
-        return gameRepository.save(existingGame);
+    public void updateGame(Long id, Game game) {
+
+        Optional<Game> select = gameRepository.findById(id);
+        select.ifPresent((selectGame ->{
+            selectGame.setTitle(game.getTitle());
+            selectGame.setDeveloper(game.getDeveloper());
+            selectGame.setReleaseYear(game.getReleaseYear());
+
+            gameRepository.save(selectGame);
+        }));
     }
 
     @Transactional
