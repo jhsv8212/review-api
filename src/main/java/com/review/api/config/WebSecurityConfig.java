@@ -38,7 +38,8 @@ public class WebSecurityConfig {
 				.csrf().disable() // rest api이므로 csrf 보안이 필요없으므로 disable처리.
 				.formLogin().disable()
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/*/game").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/game/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.POST, "/game/**").hasRole("ADMIN")
 				.antMatchers("/**").permitAll()
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증하므로 세션은 필요없으므로 생성안함.

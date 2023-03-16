@@ -33,7 +33,7 @@ public class GameController {
 
     // 게임 정보 생성 API
     @PostMapping("/game")
-    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
         Game createdGame = service.createGame(game);
         return ResponseEntity.created(URI.create("/games/" + createdGame.getId())).body(createdGame);
