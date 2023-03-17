@@ -39,13 +39,10 @@
   <br>a. 2개 이상의 리뷰 생성, 수정, 삭제 기능 개발은 요구사항이 아닙니다.
   <br>b. 단일 리뷰 생성, 수정, 삭제 기능 개발에만 초점을 맞춰주세요.
 8. 기술 스택✔
-  <br>a. Java/Kotlin
-    <br>i. 둘 중에 자유롭게 선택하시면 됩니다.
-    <br>ii. java를 선택하실 경우, JDK 1.8 이상으로 맞춰주세요.
-  <br>b. Spring Boot 2.7.4 이상
+  <br>a. java JDK 1.8 
+  <br>b. Spring Boot 2.7.6
   <br>c. Spring Data JPA 2.7.3 이상
-  <br>d. RDB
-  <br>i. MySQL, PostgreSQL, MariaDB 중 자유롭게 선택 가능합니다.
+  <br>d. RDB - H2
 -------------------------
 **구현 항목은 ✔ 체크 하였습니다**
 
