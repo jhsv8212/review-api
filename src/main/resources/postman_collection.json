@@ -40,10 +40,16 @@
 					"name": "게임수정",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjc4OTU1NDM3LCJleHAiOjE2Nzg5NTkwMzd9.hLLINDjloqVvhO0dz5eaT6st-9A37vg4qb6A2TULnBg",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"스타끄래쁘트\",\r\n    \"developer\":\"불리자두\",\r\n    \"releaseYear\":2000\r\n}",
+							"raw": "{\r\n    \"title\":\"스타끄래쁘트2\",\r\n    \"developer\":\"불리자두\",\r\n    \"releaseYear\":2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,16 +188,56 @@
 				{
 					"name": "회원가입",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin\",\r\n    \"nickName\":\"관리자\",\r\n    \"password\":\"123qwe\",\r\n    \"gender\":\"M\",\r\n    \"birthYear\":2000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"signup"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "로그인",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin\",\r\n    \"password\":\"123qwe\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
