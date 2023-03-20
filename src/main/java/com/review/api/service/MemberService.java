@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.review.api.config.JwtTokenProvider;
 import com.review.api.entity.Member;
 import com.review.api.repository.MemberRepository;
 import com.review.api.response.CommonResponse;
@@ -19,11 +20,26 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService {
 
     private final MemberRepository repository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder  passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public CommonResponse login(Member member) {
+        Member getMember = repository.findByEmail(member.getEmail())
+                .orElseThrow(() -> new RuntimeException("가입되지 않은 ID입니다."));
+        if (!passwordEncoder.matches(member.getPassword(), getMember.getPassword())) {
+            throw new RuntimeException("잘못된 비밀번호입니다.");
+        }
+        CommonResponse response = new CommonResponse();
+        response.setResult("SUCCESS");
+        response.setMessage("로그인 완료 되었습니다");
+        response.setData(jwtTokenProvider.createToken(String.valueOf(getMember.getUsername()), getMember.getRoles()));
+
+        return response;
+    }
 
     public CommonResponse signUp(Member member) {
 
-        CommonResponse result = new CommonResponse();
+        CommonResponse response = new CommonResponse();
 
         try {
             member.setPassword(passwordEncoder.encode(member.getPassword()));
@@ -31,15 +47,15 @@ public class MemberService {
                             Collections.singletonList("ROLE_ADMIN") : Collections.singletonList("ROLE_USER"));
             repository.save(member);
 
-            result.setCode(1);
-            result.setMessage("가입 성공!");
+            response.setResult("SUCCESS");
+            response.setMessage("가입 성공!");
 
         } catch (Exception e) {
-            result.setCode(-1);
-            result.setMessage("가입 실패!");
+            response.setResult("FAIL");
+            response.setMessage("가입 실패!");
             e.printStackTrace();
         }
-        return result;
+        return response;
     }
 
     public Optional<Member> findUserById(Long id) {

@@ -26,22 +26,13 @@ public class MemberController {
 
 	private final MemberRepository repository;
 	private final MemberService service;
-	private final JwtTokenProvider jwtTokenProvider;
 	private final PasswordEncoder passwordEncoder;
 
 	@PostMapping("/login")
-	private ResponseEntity<HashMap<String, String>> loginUser(
+	private ResponseEntity<CommonResponse> loginUser(
 			@RequestBody Member member
 			) {
-
-		Member getMember = repository.findByEmail(member.getEmail())
-				.orElseThrow(() -> new RuntimeException("가입되지 않은 ID입니다."));
-		if (!passwordEncoder.matches(member.getPassword(), getMember.getPassword())) {
-			throw new RuntimeException("잘못된 비밀번호입니다.");
-		}
-		HashMap<String, String> hm = new HashMap<>();
-		hm.put("token", jwtTokenProvider.createToken(String.valueOf(getMember.getUsername()), getMember.getRoles()));
-		return new ResponseEntity<>(hm, HttpStatus.OK);
+		return new ResponseEntity<>(service.login(member), HttpStatus.OK);
 	}
 
 	@PostMapping("/signup")

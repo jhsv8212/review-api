@@ -58,15 +58,13 @@ public class GameController {
     // 게임 정보 조회 API
     @GetMapping("/game/{id}")
     public ResponseEntity<Game> getGame(@PathVariable Long id) {
-        Game game = service.getGame(id);
-        return ResponseEntity.ok(game);
+        return ResponseEntity.ok(service.getGame(id));
     }
 
     // 모든 게임 정보 조회 API
     @GetMapping("/games")
     public ResponseEntity<List<Game>> getGames() {
-        List<Game> games = service.getGames();
-        return ResponseEntity.ok(games);
+        return ResponseEntity.ok(service.getGames());
     }
 
 
