@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.review.api.config.JwtTokenProvider;
 import com.review.api.entity.Member;
+import com.review.api.exception.CommonException;
 import com.review.api.repository.MemberRepository;
 import com.review.api.response.CommonResponse;
 
@@ -25,9 +26,9 @@ public class MemberService {
 
     public CommonResponse login(Member member) {
         Member getMember = repository.findByEmail(member.getEmail())
-                .orElseThrow(() -> new RuntimeException("가입되지 않은 ID입니다."));
+                .orElseThrow(() -> new CommonException("가입되지 않은 ID입니다."));
         if (!passwordEncoder.matches(member.getPassword(), getMember.getPassword())) {
-            throw new RuntimeException("잘못된 비밀번호입니다.");
+            throw new CommonException("잘못된 비밀번호입니다.");
         }
         CommonResponse response = new CommonResponse();
         response.setResult("SUCCESS");

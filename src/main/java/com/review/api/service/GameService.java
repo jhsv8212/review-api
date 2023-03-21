@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.review.api.entity.Review;
 import com.review.api.repository.ReviewRepository;
+import com.review.api.response.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,12 @@ public class GameService {
     private final GameRepository gameRepository;
 
     @Transactional
-    public Game createGame(Game game) {
-        return gameRepository.save(game);
+    public CommonResponse<String> createGame(Game game) {
+
+        CommonResponse response = new CommonResponse();
+        response.setResult("SUCCESS");
+        response.setMessage("게임 추가 완료");
+        return response;
     }
 
     @Transactional

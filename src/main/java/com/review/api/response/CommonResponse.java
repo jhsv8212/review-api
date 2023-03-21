@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL) // null인 경우엔 JSON 노출 안됨
-public class CommonResponse {
+public class CommonResponse<T> {
 
-	private String result = "FAIL";
+	private String result;
 
 	private String message;
 
-	private String data;
+	private T data;
 
 }

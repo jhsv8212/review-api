@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.review.api.entity.Review;
+import com.review.api.response.CommonResponse;
 import com.review.api.service.GameService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,10 @@ public class GameController {
     // 게임 정보 생성 API
     @PostMapping("/game")
      @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Game> createGame(@RequestBody Game game) {
-        Game createdGame = service.createGame(game);
-        return ResponseEntity.created(URI.create("/games/" + createdGame.getId())).body(createdGame);
+    public ResponseEntity<CommonResponse<String>> createGame(@RequestBody Game game) {
+
+        // return ResponseEntity.created(URI.create("/games/" + createdGame.getId())).body(createdGame);
+        return ResponseEntity.ok(service.createGame(game));
     }
 
     // 게임 정보 수정 API
