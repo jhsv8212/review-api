@@ -159,7 +159,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"user_id\":1,\r\n    \"game_id\":1,\r\n    \"rating\":3,\r\n    \"likeCount\":123,\r\n    \"content\":\"이것은 재밌는 게임이다\"\r\n}",
+							"raw": "{\r\n    \"game\":{\r\n        \"id\":1\r\n    },\r\n    \"member\":{\r\n        \"id\":1\r\n    },\r\n    \"rating\":3,\r\n    \"likeCount\":123,\r\n    \"content\":\"이것은 재밌는 게임이다\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

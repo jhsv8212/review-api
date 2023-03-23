@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.review.api.entity.Game;
+import com.review.api.exception.CommonException;
 import com.review.api.repository.GameRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,7 +54,7 @@ public class GameService {
 
     public Game getGame(Long id) {
         return gameRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게임 정보가 존재하지 않습니다."));
+                .orElseThrow(() -> new CommonException("게임 정보가 존재하지 않습니다."));
     }
 
     public List<Game> getGames() {

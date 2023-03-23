@@ -22,7 +22,7 @@ import java.util.Optional;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final MemberRepository userRepository;
+    private final MemberRepository memberRepository;
     private final GameRepository gameRepository;
 
     public Page<Review> findReviewAll(Integer order, Integer page) {
@@ -55,14 +55,8 @@ public class ReviewService {
     }
 
     public void saveReview(Review review) {
-        // Optional<Game> getGame = gameRepository.findById(review.getGame().getId());
-        // Optional<Users> getUser = userRepository.findById(review.getUsers().getId());
-        // review.toBuilder()
-        //         .game(getGame)
-        //         .member(getUser)
-        //         .createdAt(LocalDateTime.now())
-        //         .updatedAt(LocalDateTime.now())
-        //         .build();
+        review.setCreatedAt(LocalDateTime.now());
+        review.setUpdatedAt(LocalDateTime.now());
         reviewRepository.save(review);
 
 
